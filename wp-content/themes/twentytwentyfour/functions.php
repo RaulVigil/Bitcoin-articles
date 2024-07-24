@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Twenty Twenty-Four functions and definitions
  *
@@ -12,20 +13,21 @@
  * Register block styles.
  */
 
-if ( ! function_exists( 'twentytwentyfour_block_styles' ) ) :
+if (!function_exists('twentytwentyfour_block_styles')) :
 	/**
 	 * Register custom block styles
 	 *
 	 * @since Twenty Twenty-Four 1.0
 	 * @return void
 	 */
-	function twentytwentyfour_block_styles() {
+	function twentytwentyfour_block_styles()
+	{
 
 		register_block_style(
 			'core/details',
 			array(
 				'name'         => 'arrow-icon-details',
-				'label'        => __( 'Arrow icon', 'twentytwentyfour' ),
+				'label'        => __('Arrow icon', 'twentytwentyfour'),
 				/*
 				 * Styles for the custom Arrow icon style of the Details block
 				 */
@@ -48,7 +50,7 @@ if ( ! function_exists( 'twentytwentyfour_block_styles' ) ) :
 			'core/post-terms',
 			array(
 				'name'         => 'pill',
-				'label'        => __( 'Pill', 'twentytwentyfour' ),
+				'label'        => __('Pill', 'twentytwentyfour'),
 				/*
 				 * Styles variation for post terms
 				 * https://github.com/WordPress/gutenberg/issues/24956
@@ -71,7 +73,7 @@ if ( ! function_exists( 'twentytwentyfour_block_styles' ) ) :
 			'core/list',
 			array(
 				'name'         => 'checkmark-list',
-				'label'        => __( 'Checkmark', 'twentytwentyfour' ),
+				'label'        => __('Checkmark', 'twentytwentyfour'),
 				/*
 				 * Styles for the custom checkmark list block style
 				 * https://github.com/WordPress/gutenberg/issues/51480
@@ -90,7 +92,7 @@ if ( ! function_exists( 'twentytwentyfour_block_styles' ) ) :
 			'core/navigation-link',
 			array(
 				'name'         => 'arrow-link',
-				'label'        => __( 'With arrow', 'twentytwentyfour' ),
+				'label'        => __('With arrow', 'twentytwentyfour'),
 				/*
 				 * Styles for the custom arrow nav link block style
 				 */
@@ -108,7 +110,7 @@ if ( ! function_exists( 'twentytwentyfour_block_styles' ) ) :
 			'core/heading',
 			array(
 				'name'         => 'asterisk',
-				'label'        => __( 'With asterisk', 'twentytwentyfour' ),
+				'label'        => __('With asterisk', 'twentytwentyfour'),
 				'inline_style' => "
 				.is-style-asterisk:before {
 					content: '';
@@ -144,20 +146,21 @@ if ( ! function_exists( 'twentytwentyfour_block_styles' ) ) :
 	}
 endif;
 
-add_action( 'init', 'twentytwentyfour_block_styles' );
+add_action('init', 'twentytwentyfour_block_styles');
 
 /**
  * Enqueue block stylesheets.
  */
 
-if ( ! function_exists( 'twentytwentyfour_block_stylesheets' ) ) :
+if (!function_exists('twentytwentyfour_block_stylesheets')) :
 	/**
 	 * Enqueue custom block stylesheets
 	 *
 	 * @since Twenty Twenty-Four 1.0
 	 * @return void
 	 */
-	function twentytwentyfour_block_stylesheets() {
+	function twentytwentyfour_block_stylesheets()
+	{
 		/**
 		 * The wp_enqueue_block_style() function allows us to enqueue a stylesheet
 		 * for a specific block. These will only get loaded when the block is rendered
@@ -170,37 +173,210 @@ if ( ! function_exists( 'twentytwentyfour_block_stylesheets' ) ) :
 			'core/button',
 			array(
 				'handle' => 'twentytwentyfour-button-style-outline',
-				'src'    => get_parent_theme_file_uri( 'assets/css/button-outline.css' ),
-				'ver'    => wp_get_theme( get_template() )->get( 'Version' ),
-				'path'   => get_parent_theme_file_path( 'assets/css/button-outline.css' ),
+				'src'    => get_parent_theme_file_uri('assets/css/button-outline.css'),
+				'ver'    => wp_get_theme(get_template())->get('Version'),
+				'path'   => get_parent_theme_file_path('assets/css/button-outline.css'),
 			)
 		);
 	}
 endif;
 
-add_action( 'init', 'twentytwentyfour_block_stylesheets' );
+add_action('init', 'twentytwentyfour_block_stylesheets');
 
 /**
  * Register pattern categories.
  */
 
-if ( ! function_exists( 'twentytwentyfour_pattern_categories' ) ) :
+if (!function_exists('twentytwentyfour_pattern_categories')) :
 	/**
 	 * Register pattern categories
 	 *
 	 * @since Twenty Twenty-Four 1.0
 	 * @return void
 	 */
-	function twentytwentyfour_pattern_categories() {
+	function twentytwentyfour_pattern_categories()
+	{
 
 		register_block_pattern_category(
 			'twentytwentyfour_page',
 			array(
-				'label'       => _x( 'Pages', 'Block pattern category', 'twentytwentyfour' ),
-				'description' => __( 'A collection of full page layouts.', 'twentytwentyfour' ),
+				'label'       => _x('Pages', 'Block pattern category', 'twentytwentyfour'),
+				'description' => __('A collection of full page layouts.', 'twentytwentyfour'),
 			)
 		);
 	}
 endif;
 
-add_action( 'init', 'twentytwentyfour_pattern_categories' );
+add_action('init', 'twentytwentyfour_pattern_categories');
+
+/*Crear el custom post type 'Books'*/
+function create_books_post_type()
+{
+	$labels = array(
+		'name' => __('Books'),
+		'singular_name' => __('Book'),
+		'add_new' => __('Add New Book'),
+		'add_new_item' => __('Add New Book'),
+		'edit_item' => __('Edit Book'),
+		'new_item' => __('New Book'),
+		'view_item' => __('View Book'),
+		'search_items' => __('Search Books'),
+		'not_found' => __('No Books found'),
+		'not_found_in_trash' => __('No Books found in Trash'),
+		'all_items' => __('All Books'),
+		'archives' => __('Book Archives'),
+		'insert_into_item' => __('Insert into book'),
+		'uploaded_to_this_item' => __('Uploaded to this book'),
+		'featured_image' => __('Featured Image'),
+		'set_featured_image' => __('Set featured image'),
+		'remove_featured_image' => __('Remove featured image'),
+		'use_featured_image' => __('Use as featured image'),
+		'menu_name' => __('Books'),
+		'filter_items_list' => __('Filter books list'),
+		'items_list_navigation' => __('Books list navigation'),
+		'items_list' => __('Books list'),
+	);
+
+	$args = array(
+		'labels' => $labels,
+		'public' => true,
+		'has_archive' => true,
+		'rewrite' => array('slug' => 'books'),
+		'supports' => array('title', 'editor', 'thumbnail'),
+		'show_in_rest' => true,
+	);
+
+	register_post_type('books', $args);
+}
+
+add_action('init', 'create_books_post_type');
+
+/*mostrar libros'*/
+function display_books_shortcode($atts)
+{
+	$args = array(
+		'post_type' => 'books',
+		'posts_per_page' => -1
+	);
+
+	$query = new WP_Query($args);
+	$output = '<div class="books-container">';
+
+	while ($query->have_posts()) {
+		$query->the_post();
+		$book_title = get_field('titulo');
+		$book_description = get_field('descripcion_breve');
+		$book_image = get_field('imagen');
+		$book_year = get_field('ano_de_publicacion');
+
+		$output .= '<div class="book">';
+		if ($book_image) {
+			$output .= '<img class="image-book" src="' . esc_url($book_image['url']) . '" alt="' . esc_attr($book_image['alt']) . '">';
+		}
+		$output .= '<div class="container-details">';
+		$output .= '<div>';
+		$output .= '<h2 class="title-book">' . esc_html($book_title) . '</h2>';
+		$output .= '<p class="txt-book">' . limitarCaracteres(esc_html($book_description)) . '</p>';
+		$output .= '</div>';
+		$output .= '<div>';
+		$output .= '<p class="txt-book-year"><span><strong>Year:</strong> ' . esc_html($book_year) . '</span></p>';
+		$output .= '</div>';
+		$output .= '</div>';
+		$output .= '</div>';
+	}
+
+	wp_reset_postdata();
+	$output .= '</div>';
+
+	return $output;
+}
+
+add_shortcode('display_books', 'display_books_shortcode');
+
+/*Funcion para agregar archivo de estilo*/
+function enqueue_books_styles()
+{
+	wp_enqueue_style('books-style', get_template_directory_uri() . '/bookStyle.css');
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_books_styles');
+
+function limitarCaracteres($cadena, $limite = 100)
+{
+	if (strlen($cadena) > $limite) {
+		return substr($cadena, 0, $limite) . "...";
+	} else {
+		return $cadena;
+	}
+}
+
+function register_custom_sidebars()
+{
+
+	$args = array(
+		'id'                    => 'custom-sidebar',
+		'name'                  => 'Custom Sidebar',
+	);
+	register_sidebar($args);
+}
+add_action('widgets_init', 'register_custom_sidebars');
+
+
+class Bitcoin_Price_Widget extends WP_Widget
+{
+
+	public function __construct()
+	{
+		parent::__construct(
+			'custom_widget_id',
+			__('Bitcoin price', 'text_domain'),
+			array(
+				'description' => __('This is a custom widget generated with WPCode', 'text_domain'),
+				'classname' => 'bitcoin-widget-widget',
+			)
+		);
+	}
+
+	public function widget($args, $instance)
+	{
+		$instance = wp_parse_args((array) $instance, array());
+		// Before widget tag
+		echo $args['before_widget'];
+
+		echo '<pre>';
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+			CURLOPT_URL => 'https://mempool.space/api/v1/prices',
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => '',
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => 'GET',
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		print json_encode($response, JSON_PRETTY_PRINT);
+		echo '</pre>';
+
+		// After widget tag
+		echo $args['after_widget'];
+	}
+
+	public function form($instance)
+	{
+		// Set default values
+		$instance = wp_parse_args((array) $instance, array());
+	}
+}
+
+
+function bitcoin_price_register_widgets()
+{
+	register_widget('Bitcoin_Price_Widget');
+}
+add_action('widgets_init', 'bitcoin_price_register_widgets');
